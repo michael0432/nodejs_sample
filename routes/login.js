@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var api = require('./api');
+var object = require('./object');
 
 router.post('/', function(req, res, next) {
     api.login(req.body['account'],req.body['password'])
