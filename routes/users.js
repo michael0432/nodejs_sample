@@ -4,9 +4,9 @@ var api = require('./api');
 var object = require('./object');
 
 /* GET users listing. */
-router.get('/:account', function(req, res, next) {
+router.get('/', function(req, res, next) {
     //res.render('index', {title: req.params.account})
-    api.get_user_data(req.params.account)
+    api.get_user_data()
     .then(result =>{
         var user_obj = new object.User();
         var user_obj = result;

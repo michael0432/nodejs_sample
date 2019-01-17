@@ -4,9 +4,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+// set router
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var helloRouter = require('./routes/hello');
 var regRouter = require('./routes/reg');
 var loginRouter = require('./routes/login');
 
@@ -20,14 +20,15 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// set router
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// set router
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/hello',helloRouter);
 app.use('/reg',regRouter);
 app.use('/login',loginRouter);
 

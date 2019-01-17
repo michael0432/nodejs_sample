@@ -2,6 +2,10 @@ var express = require('express');
 var MongoClient = require('mongodb').MongoClient;
 var object = require('./object');
 
+
+// api : register
+// input : account / password
+// output : Promise -> reslove(0) or reslove(1) or reject
 function register_db(account,password){
     return new Promise(function(resolve, reject){
       MongoClient.connect("mongodb://localhost:27017/mydb", function (err, client) {
@@ -26,6 +30,9 @@ function register_db(account,password){
     });
 }
 
+// api : login
+// input : account / password
+// output : Promise -> reslove(0) or reslove(1) or reject
 function login_db(account,password){
     return new Promise(function(reslove, reject){
         MongoClient.connect("mongodb://localhost:27017/mydb", function (err, client){
@@ -52,6 +59,9 @@ function login_db(account,password){
     })
 }
 
+// api : get_user_data - for user page
+// input : None
+// output : Promise -> reslove(user_object) or reject
 function get_user_data(){
     account = global.LOGIN_ACCOUNT;
     return new Promise(function(reslove, reject){
