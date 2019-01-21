@@ -1,10 +1,9 @@
 var MongoClient = require('mongodb').MongoClient;
 
+
 function dbcreate(){
   MongoClient.connect("mongodb://localhost:27017/mydb", function (err, client) {
     if(err) throw err;
-    //Write databse Insert/Update/Query code here..
-    console.log('mongodb is running!');
     var db = client.db('mydb');
     db.collection('Persons',function(err,collection){
       collection.insertOne({ id:1, firstName:'Steve', lastName:'Jobs' });
@@ -20,6 +19,8 @@ function dbcreate(){
   });
   return;
 }
+
+
 function dbdelete(){
   //delete
 MongoClient.connect("mongodb://localhost:27017/mydb", function (err, client) {
@@ -60,22 +61,24 @@ return;
 
 function dbquery(){
 
-MongoClient.connect("mongodb://localhost:27017/mydb", function (err, client) {
-  if(err) throw err;
-  //Write databse Insert/Update/Query code here..
-  console.log('mongodb is running!');
-  var db = client.db('mydb');
-  db.collection("Persons",function(err,collection){
-    collection.find({firstName:"Bill"}).toArray(function(err,items){
-        if(err) throw err;
-        console.log(items);
-        console.log("We found "+items.length+" results!");
+  MongoClient.connect("mongodb://localhost:27017/mydb", function (err, client) {
+    if(err) throw err;
+    //Write databse Insert/Update/Query code here..
+    console.log('mongodb is running!');
+    var db = client.db('mydb');
+    db.collection("Persons",function(err,collection){
+      collection.find({firstName:"Bill"}).toArray(function(err,items){
+          if(err) throw err;
+          console.log(items);
+          console.log("We found "+items.length+" results!");
+      });
     });
+    client.close(); //關閉連線
   });
-  client.close(); //關閉連線
-});
 return;
 }
+
+
 module.exports = {
   create: dbcreate,
   delete: dbdelete,
