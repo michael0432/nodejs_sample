@@ -6,6 +6,7 @@ var object = require('./object');
 // api : register
 // input : account / password
 // output : Promise -> reslove(0) or reslove(1) or reject
+
 function register_db(account,password){
     return new Promise(function(resolve, reject){
       MongoClient.connect("mongodb://localhost:27017/mydb", function (err, client) {
@@ -35,7 +36,7 @@ function register_db(account,password){
 // output : Promise -> reslove(0) or reslove(1) or reject
 function login_db(account,password){
     return new Promise(function(reslove, reject){
-        MongoClient.connect("mongodb://localhost:27017/mydb", function (err, client){
+        MongoClient.connect("mongodb://localhost:27017/mydb", { useNewUrlParser: true }, function (err, client){
             if (err) reject(err);
             var db = client.db('mydb');
             db.collection('Account',function(err,collection){

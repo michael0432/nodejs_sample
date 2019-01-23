@@ -4,13 +4,17 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+// session setting
+var session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
 // set router
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var regRouter = require('./routes/reg');
 var loginRouter = require('./routes/login');
+var logoutRouter = require('./routes/logout');
 
-var MongoClient = require('mongodb').MongoClient;
  
 // Connect to the db
 
@@ -26,11 +30,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// set session
+app.use(session({
+  secret: 'ramdom string',
+  store:new MongoStore({url:"mongodb://localhost:27017/mydb"}),
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 600000}
+}));
+
 // set router
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/reg',regRouter);
 app.use('/login',loginRouter);
+app.use('/logout',logoutRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

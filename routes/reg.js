@@ -6,12 +6,11 @@ router.post('/', function(req, res, next) {
   api.regis(req.body['account'],req.body['password'])
     .then(result =>{
       if (result == 1){
-        LOGIN = true;
-        LOGIN_ACCOUNT = req.body['account'];
-        res.render('index', { title: 'Register Success'+LOGIN_ACCOUNT });
+        req.session.account = req.body['account'];
+        res.redirect('/');
       }
       else{
-        res.render('index', { title: 'Register Fail' });
+        res.redirect('/');
       }
     })
     .catch((err) => {
@@ -23,4 +22,4 @@ router.get('/', function(req, res, next) {
   res.render('reg');
 });
 
-  module.exports = router;
+module.exports = router;

@@ -1,26 +1,34 @@
 var express = require('express');
 var router = express.Router();
 var api = require('./api');
-var object = require('./object');
+var isLogin = false;
 
 router.post('/', function(req, res, next) {
     api.login(req.body['account'],req.body['password'])
         .then(result =>{
             if(result == 1){
-                LOGIN = true;
-                LOGIN_ACCOUNT = req.body['account'];
-                res.render('index', { title: 'Login Success' });
+                req.session.account = req.body['account'];
+                res.redirect('/');
             }
             else{
-                res.render('index', { title: 'Login Fail' });
+                res.redirect('/');
             }
         })
         .catch((err) =>{
             console.log(err.message);
         })
 });
+
 router.get('/', function(req, res, next) {
-    res.render('reg');
+    //res.render('login');
+    isLogin = false;
+    if(req.session.account){
+        isLogin = true;
+        res.redirect('/');
+    }
+    else{
+        res.render('login');
+    }
 });
 
 module.exports = router;
