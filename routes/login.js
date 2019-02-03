@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var api = require('./api');
-var isLogin = false;
 
 router.post('/', function(req, res, next) {
     api.login(req.body['account'],req.body['password'])
@@ -16,12 +15,11 @@ router.post('/', function(req, res, next) {
         })
         .catch((err) =>{
             console.log(err.message);
-        })
+        });
 });
 
 router.get('/', function(req, res, next) {
     //res.render('login');
-    isLogin = false;
     if(req.session.account){
         isLogin = true;
         res.redirect('/');

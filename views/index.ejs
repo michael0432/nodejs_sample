@@ -10,5 +10,12 @@
     <a href="/login">Login</a>
     <a href="/reg">Register</a>
     <a href="/logout">Logout</a>
+    <ul>
+      <% for (var item in items){%>
+        <li>id:<%=items[item].id%></li>
+        <li>name:<%=items[item].name%></li>
+        <li>price:<%=items[item].price%></li>
+      <%}%>
+    </ul>
   </body>
 </html>

@@ -63,8 +63,7 @@ function login_db(account,password){
 // api : get_user_data - for user page
 // input : None
 // output : Promise -> reslove(user_object) or reject
-function get_user_data(){
-    account = global.LOGIN_ACCOUNT;
+function get_user_data(account){
     return new Promise(function(reslove, reject){
         MongoClient.connect("mongodb://localhost:27017/mydb", function (err, client){
             if (err) reject(err);
@@ -83,8 +82,51 @@ function get_user_data(){
     });
 }
 
+function add_item(i){
+    return new Promise(function(reslove, reject){
+        MongoClient.connect("mongodb://localhost:27017/mydb", function (err, client){
+            if (err) reject(err);
+            var db = client.db('mydb');
+            db.collection('Item',function(err,collection){
+                if(err) reject(err);
+                collection.find({id:i.id}).toArray(function(err,items){
+                    if(err) reject(err);
+                    if(items.length == 0){
+                        collection.insertOne({id:i.id, name:i.name, price:i.price },function(err, result){
+                            if(err) reject(err);
+                            reslove(i);
+                          }); 
+                    }
+                    else{
+                        reslove(0);
+                    }
+                });
+            });
+        });
+    });
+}
+
+function get_all_item(){
+    return new Promise(function(reslove, reject){
+        MongoClient.connect("mongodb://localhost:27017/mydb", function (err, client){
+            if (err) reject(err);
+            var db = client.db('mydb');
+            db.collection('Item',function(err,collection){
+                if(err) reject(err);
+                collection.find().toArray(function(err,items){
+                    if(err) reject(err);
+                    reslove(items);
+                });
+            });
+        });
+    });
+        
+}
+
 module.exports = {
     regis: register_db,
     login: login_db,
-    get_user_data: get_user_data
+    get_user_data: get_user_data,
+    add_item: add_item,
+    get_all_item: get_all_item
 };
