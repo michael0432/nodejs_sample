@@ -21,7 +21,6 @@ router.post('/', function(req, res, next) {
 router.get('/', function(req, res, next) {
     //res.render('login');
     if(req.session.account){
-        isLogin = true;
         res.redirect('/');
     }
     else{

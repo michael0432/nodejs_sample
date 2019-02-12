@@ -1,0 +1,33 @@
+* {margin: 0; padding: 0;}
+ 
+.item_list div {
+  margin: 20px;
+}
+ 
+.item_list ul {
+  list-style-type: none;
+  width: 500px;
+}
+ 
+.item_list h3 {
+  font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
+}
+ 
+.item_list li img {
+  float: left;
+  margin: 0 15px 0 0;
+}
+ 
+.item_list li p {
+  font: 200 12px/1.5 Georgia, Times New Roman, serif;
+}
+ 
+.item_list li {
+  padding: 10px;
+  overflow: auto;
+}
+ 
+.item_list li:hover {
+  background: #eee;
+  cursor: pointer;
+}

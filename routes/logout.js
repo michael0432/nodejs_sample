@@ -4,7 +4,7 @@ var api = require('./api');
 
 router.get('/', function(req, res, next){
     req.session.destroy();
-    return res.redirect('/');
+    res.redirect('/');
 });
 
 module.exports = router;

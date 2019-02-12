@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title>My index</title>
+    <link rel='stylesheet' href='/stylesheets/navbar.css' />
+    <link rel='stylesheet' href='/stylesheets/item_list.css' />
+    <div class="topnav">
+      <a class="active" href="/">Home</a>
+      <a href="/reg">Register</a>
+      <%if (account == "Guest") { %>
+        <a href="/login">Login</a>
+      <% } %>
+      <%if (account != "Guest") { %>
+        <a href="/logout">Logout</a>
+      <% } %>
+      <p> <%=account%>, Welcome! </p>
+    </div>
   </head>
   <body>
-    <h1>Your Account:<%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <a href="/login">Login</a>
-    <a href="/reg">Register</a>
-    <a href="/logout">Logout</a>
     <ul>
       <% for (var item in items){%>
         <li>id:<%=items[item].id%></li>
@@ -17,5 +24,16 @@
         <li>price:<%=items[item].price%></li>
       <%}%>
     </ul>
+    <div class="item_list">
+      <ul>
+        <% for (var item in items){%>
+          <li>
+            <img src=<%=items[item].image_path%> />
+            <h3><%=items[item].name%></h3>
+            <p><%=items[item].price%></p>
+          </li>
+        <%}%>
+      </ul>
+    </div>
   </body>
 </html>

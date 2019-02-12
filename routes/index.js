@@ -9,10 +9,10 @@ router.get('/', function(req, res, next) {
   .then(result =>{
     var items = result;
     if(req.session.account){
-      res.render('index', { title: req.session.account, items: items});
+      res.render('index', { account: req.session.account, items: items});
     }
     else{
-      res.render('index', { title: "Guest", items: items});
+      res.render('index', { account: "Guest", items: items});
     }
   })
   .catch((err) =>{
@@ -23,7 +23,7 @@ router.get('/', function(req, res, next) {
 // tmp
 router.post('/add_item',function(req, res, next){
   console.log(req.body['id']);
-  var i = new object.Item(req.body['id'],req.body['name'],req.body['price']);
+  var i = new object.Item(req.body['id'],req.body['shop_id'],req.body['name'],req.body['price'],req.body['image_path'],req.body['category'],req.body['key_word'],req.body['average_score']);
   api.add_item(i)
   .then(result =>{
     if (result == 0){
@@ -36,5 +36,8 @@ router.post('/add_item',function(req, res, next){
   .catch((err) =>{
     console.log(err.message);
   });
+
 });
+
+
 module.exports = router;

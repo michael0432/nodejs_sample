@@ -92,7 +92,7 @@ function add_item(i){
                 collection.find({id:i.id}).toArray(function(err,items){
                     if(err) reject(err);
                     if(items.length == 0){
-                        collection.insertOne({id:i.id, name:i.name, price:i.price },function(err, result){
+                        collection.insertOne({id:i.id, name:i.name, price:i.price, image_path:i.image_path, category:i.category, key_word: i.key_word, average_score:i.average_score},function(err, result){
                             if(err) reject(err);
                             reslove(i);
                           }); 
@@ -119,8 +119,7 @@ function get_all_item(){
                 });
             });
         });
-    });
-        
+    });     
 }
 
 module.exports = {
